@@ -22,16 +22,31 @@ class TransactionsController extends Controller
     public function store(Request $request)
     {
         $transaction = Transactions::create($request->all());
-        return response()->json($transaction, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'Category created successfully',
+            'data' => $transaction
+        ], 201);;
 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Transactions $transaction)
+    public function show($id)
     {
-        return response()->json($transaction);
+        $transaction= Transactions::find($id);
+        if (!$transaction) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $transaction
+        ], 200);
     }
 
     /**
@@ -46,9 +61,22 @@ class TransactionsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transactions $transaction)
+    public function destroy($id)
     {
+        $transaction = Transactions::find($id);
+
+        if (!$transaction) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found'
+            ], 404);
+        }
+
         $transaction->delete();
-        return response()->json(null,204);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully'
+        ], 200);
     }
 }

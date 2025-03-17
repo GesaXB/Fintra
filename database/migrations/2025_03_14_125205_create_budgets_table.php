@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('category_id');
-            $table->decimal('budget_amount');
+            $table->decimal('budget_amount', 10,2)->default(0);
             $table->year('month');
             $table->timestamps();
         });

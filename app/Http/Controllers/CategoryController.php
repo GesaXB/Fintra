@@ -19,14 +19,8 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'name' => 'required|string|max:50'
-        ]);
 
-        // Buat kategori baru
-        $category = Categories::create($validated);
+        $category = Categories::create($request->all());
 
         return response()->json([
             'success' => true,
@@ -57,11 +51,6 @@ class CategoryController extends Controller
 
     public function update(Request $request, Categories $category)
     {
-        $request->validate([
-            'name' => 'sometimes|string|max:50',
-            'type' => 'sometimes|in:income,expense',
-        ]);
-
         $category->update($request->all());
 
         return response()->json([
