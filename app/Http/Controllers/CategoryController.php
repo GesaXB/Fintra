@@ -19,8 +19,11 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-
-        $category = Categories::create($request->all());
+        $category = Categories::create([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'type' => $request->type
+        ]);
 
         return response()->json([
             'success' => true,
