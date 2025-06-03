@@ -12,7 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Register middleware aliases
+        $middleware->alias([
+            'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+            'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        ]);
+
+        // Add Sanctum middleware to API
+        $middleware->api(prepend: [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
