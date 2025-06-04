@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthController;    
 
 // Routes yang tidak membutuhkan authentication
 Route::middleware('guest')->group(function () {
@@ -24,6 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+      Route::get('/categories', function () {
+        return view('categorymanagement');
+    })->name('categories');
+    })->name('categories');
     
     // Logout route
     Route::post('/logout', function () {
@@ -35,7 +39,7 @@ Route::middleware('auth')->group(function () {
     })->name('logout');
     
     // Tambahkan route lain yang membutuhkan auth di sini
-});
+
 
 // API Routes untuk authentication
 Route::prefix('api')->group(function () {
