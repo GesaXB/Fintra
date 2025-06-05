@@ -13,16 +13,23 @@ return new class extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('category_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->decimal('budget_amount', 10,2)->default(0);
-            $table->year('month');
+            $table->year('month'); // Mungkin lebih tepat menggunakan 'budget_year' atau 'period'
             $table->timestamps();
+            
+            // Index untuk performa query
+            $table->index(['user_id', 'category_id']);
+            $table->index(['user_id', 'month']);
+            
+            // Unique constraint untuk mencegah duplikasi budget per kategori per bulan
+            $table->unique(['user_id', 'category_id', 'month']);
         });
     }
 
     /**
-     * Reverse the migrations.
+
      */
     public function down(): void
     {

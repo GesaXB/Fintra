@@ -217,16 +217,19 @@
                 <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 animate-slide-up" style="animation-delay: 0.6s">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">Quick Actions</h3>
                     <div class="space-y-4">
+                       <a href="{{ route('transaction') }}">
                         <button class="w-full group bg-gradient-to-r from-[#4ADE80] to-emerald-500 hover:from-emerald-500 hover:to-[#4ADE80] text-white px-6 py-5 rounded-2xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 transform relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                             <i class="fas fa-plus mr-3 text-xl group-hover:rotate-90 transition-transform duration-300"></i>
                             <span class="font-bold text-lg">Add Income</span>
-                        </button>
-                        <button class="w-full group bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white px-6 py-5 rounded-2xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 transform relative overflow-hidden">
+                        </button></a> 
+                        <a href="{{ route('transaction') }}" class="px-10">
+                            <button class="w-full group bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white px-6 py-5 rounded-2xl flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 transform relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                             <i class="fas fa-minus mr-3 text-xl group-hover:rotate-90 transition-transform duration-300"></i>
                             <span class="font-bold text-lg">Add Expense</span>
                         </button>
+                        </a>
                     </div>
                 </div>
 

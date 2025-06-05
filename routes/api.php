@@ -26,9 +26,13 @@ Route::middleware('auth:sanctum')->group(function () {
     // Semua resource routes
     Route::apiResource('users', UserController::class);
     Route::apiResource('budgets', BudgetsController::class);
-    Route::apiResource('transactions', TransactionsController::class);
+   Route::apiResource('transactions', TransactionsController::class);
     Route::apiResource('reports', ReportsController::class);
 
     // Route stats
     Route::get('categories-stats', [CategoryController::class, 'stats']);
+// routes/api.php
+Route::get('/transactions-categories', [TransactionsController::class, 'getCategories']);
+    Route::get('transactions-categories/{type}', [TransactionsController::class, 'getCategoriesByType']);
+    Route::get('transactions-summary', [TransactionsController::class, 'summary']);
 });
