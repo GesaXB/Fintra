@@ -254,7 +254,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </a>
 
-            <a href="{{ route('budgets') }}" class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 0.9s">
+            <a href="{{route('budgets')}}" class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 0.9s">
                 <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-purple-200/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl group-hover:shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">

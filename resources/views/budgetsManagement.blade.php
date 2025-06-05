@@ -429,51 +429,144 @@
     document.getElementById('userMenuButton').addEventListener('click', toggleUserMenu);
     document.getElementById('chevronIcon').addEventListener('click', toggleUserMenu);
 
+// Add this to your existing script section
+const budgetsList = document.querySelector('#budgetsList');
 
-    const modal = document.getElementById('budgetModal');
-    const openBtn = document.getElementById('createBudgetBtn');
-    const cancelBtn = document.getElementById('cancelModal');
-    const form = document.getElementById('budgetForm');
+// Load budgets
+async function loadBudgets() {
+    try {
+        const response = await fetch('/api/budgets', {
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        });
+        const data = await response.json();
 
-    openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
-    cancelBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        if (data.success) {
+            displayBudgets(data.data);
+        }
+    } catch (error) {
+        console.error('Error loading budgets:', error);
+    }
+}
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+// Display budgets
+function displayBudgets(budgets) {
+    if (!budgets.length) {
+        budgetsList.innerHTML = '<p class="text-center text-gray-500">No budgets found</p>';
+        return;
+    }
+
+    budgetsList.innerHTML = budgets.map(budget => `
+        <div class="flex items-center justify-between p-4 border-b">
+            <div>
+                <h4 class="font-medium">${budget.description}</h4>
+                <p class="text-sm text-gray-500">Rp ${budget.amount}</p>
+                <p class="text-xs text-gray-400">${budget.start_date} - ${budget.end_date}</p>
+            </div>
+            <div class="flex space-x-2">
+                <button onclick="editBudget(${budget.id})" class="text-blue-500 hover:text-blue-700">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button onclick="deleteBudget(${budget.id})" class="text-red-500 hover:text-red-700">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Create budget
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
     const data = {
-      category: document.getElementById('category').value,
-      amount: document.getElementById('amount').value,
-      start_date: document.getElementById('startDate').value,
-      end_date: document.getElementById('endDate').value,
+        description: document.getElementById('description').value,
+        amount: document.getElementById('amount').value,
+        start_date: document.getElementById('start_date').value,
+        end_date: document.getElementById('end_date').value,
     };
 
     try {
-      const res = await fetch('/api/budgets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // optional if not using Sanctum
-        },
-        body: JSON.stringify(data)
-      });
+        const res = await fetch('/api/budgets', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(data)
+        });
 
-      const result = await res.json();
+        const result = await res.json();
 
-      if (res.ok) {
-        alert('Budget created!');
-        modal.classList.add('hidden');
-        form.reset();
-        // Optional: refresh data in UI
-      } else {
-        alert('Error: ' + result.message);
-      }
+        if (res.ok) {
+            alert('Budget created successfully!');
+            modal.classList.add('hidden');
+            form.reset();
+            loadBudgets(); // Refresh the list
+        } else {
+            alert('Error: ' + result.message);
+        }
     } catch (err) {
-      console.error(err);
-      alert('Something went wrong');
+        console.error(err);
+        alert('Something went wrong');
     }
 });
+
+// Edit budget
+async function editBudget(id) {
+    try {
+        const response = await fetch(`/api/budgets/${id}`);
+        const result = await response.json();
+
+        if (result.success) {
+            const budget = result.data;
+            document.getElementById('description').value = budget.description;
+            document.getElementById('amount').value = budget.amount;
+            document.getElementById('start_date').value = budget.start_date;
+            document.getElementById('end_date').value = budget.end_date;
+
+            modal.classList.remove('hidden');
+            form.dataset.editId = id; // Store the ID for updating
+        }
+    } catch (error) {
+        console.error('Error fetching budget:', error);
+    }
+}
+
+// Delete budget
+async function deleteBudget(id) {
+    if (!confirm('Are you sure you want to delete this budget?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/budgets/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert('Budget deleted successfully!');
+            loadBudgets(); // Refresh the list
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error deleting budget:', error);
+        alert('Something went wrong');
+    }
+}
+
+// Load budgets when page loads
+document.addEventListener('DOMContentLoaded', loadBudgets);
 @endsection
 
 @push('styles')

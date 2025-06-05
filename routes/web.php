@@ -24,29 +24,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-      Route::get('/categories', function () {
+    Route::get('/categories', function () {
         return view('categorymanagement');
     })->name('categories');
-    })->name('categories');
-
-Route::middleware(['auth'])->group(function () {
+    });
     Route::get('/budgets', function () {
         return view('budgetsManagement');
-    })->name('budget');
-});
-
-Route::middleware(middleware: ['auth'])->group(function () {
+    })->name('budgets');
     Route::get('/transaction', function () {
         return view('TransactionsManagement');
     })->name('transaction');
-});
-
-Route::middleware(['auth'])->group(function () {
     Route::get('/reports', function () {
         return view('ReportsManagement');
     })->name('reports');
-});
+
 
     // Logout route
     Route::post('/logout', function () {
