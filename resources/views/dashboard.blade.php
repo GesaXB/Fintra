@@ -44,9 +44,9 @@
                             Loading...
                         @endauth
                     </span>
-                    
+
                     <div class="relative">
-                        <button type="button" 
+                        <button type="button"
                                 class="flex items-center space-x-3 p-2 rounded-2xl bg-gradient-to-r from-[#F0FDF4] to-green-50 border border-[#4ADE80]/20 hover:from-[#4ADE80]/10 hover:to-emerald-100 transition-all duration-300 hover:scale-105 group"
                                 id="userMenuButton"
                                 onclick="toggleUserMenu()">
@@ -58,32 +58,32 @@
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <div class="absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#4ADE80]/20 py-3 z-50 hidden transform transition-all duration-300 origin-top-right scale-95 opacity-0" 
+                        <div class="absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-[#4ADE80]/20 py-3 z-50 hidden transform transition-all duration-300 origin-top-right scale-95 opacity-0"
                              id="userDropdown">
                             <div class="px-6 py-4 border-b border-gray-100">
                                 <p class="text-sm text-gray-500">Signed in as</p>
                                 <p class="font-semibold text-gray-800 truncate" id="dropdownUserName">User Name</p>
                             </div>
-                            <a href="#" 
+                            <a href="#"
                                class="flex items-center px-6 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#4ADE80]/10 hover:to-emerald-100 hover:text-[#4ADE80] transition-all duration-300 group">
-                                <i class="fas fa-user mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i> 
+                                <i class="fas fa-user mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i>
                                 <span class="font-medium">Profile Settings</span>
                             </a>
-                            <a href="#" 
+                            <a href="#"
                                class="flex items-center px-6 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#4ADE80]/10 hover:to-emerald-100 hover:text-[#4ADE80] transition-all duration-300 group">
-                                <i class="fas fa-cog mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i> 
+                                <i class="fas fa-cog mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i>
                                 <span class="font-medium">Preferences</span>
                             </a>
-                            <a href="#" 
+                            <a href="#"
                                class="flex items-center px-6 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#4ADE80]/10 hover:to-emerald-100 hover:text-[#4ADE80] transition-all duration-300 group">
-                                <i class="fas fa-question-circle mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i> 
+                                <i class="fas fa-question-circle mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i>
                                 <span class="font-medium">Help & Support</span>
                             </a>
                             <hr class="my-3 border-gray-100">
-                            <button type="button" 
+                            <button type="button"
                                     class="w-full flex items-center px-6 py-4 text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 transition-all duration-300 group"
                                     onclick="logout()">
-                                <i class="fas fa-sign-out-alt mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i> 
+                                <i class="fas fa-sign-out-alt mr-4 w-5 text-center group-hover:scale-110 transition-transform"></i>
                                 <span class="font-medium">Sign Out</span>
                             </button>
                         </div>
@@ -242,7 +242,7 @@
 
         <!-- Navigation Grid -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            <a href="#" class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 0.8s">
+            <a href={{ route('transaction') }} class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 0.8s">
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-200/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl group-hover:shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
@@ -254,7 +254,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </a>
 
-            <a href="#" class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 0.9s">
+            <a href="{{ route('budgets') }}" class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 0.9s">
                 <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-purple-200/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl group-hover:shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
@@ -278,7 +278,7 @@
                 <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </a>
 
-            <a href="#" class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 1.1s">
+            <a href="{{ route('reports') }}" class="group bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-[#4ADE80]/20 p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up relative overflow-hidden" style="animation-delay: 1.1s">
                 <div class="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-teal-200/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative text-center">
                     <div class="w-16 h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl group-hover:shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
@@ -358,7 +358,7 @@ function isTokenAuth() {
 function toggleUserMenu() {
     const dropdown = document.getElementById('userDropdown');
     const chevron = document.getElementById('chevronIcon');
-    
+
     if (dropdown.classList.contains('hidden')) {
         dropdown.classList.remove('hidden');
         // Force reflow
@@ -381,7 +381,7 @@ document.addEventListener('click', function(event) {
     const userMenuButton = document.getElementById('userMenuButton');
     const userDropdown = document.getElementById('userDropdown');
     const chevron = document.getElementById('chevronIcon');
-    
+
     if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
         userDropdown.classList.add('scale-95', 'opacity-0');
         userDropdown.classList.remove('scale-100', 'opacity-100');
@@ -404,11 +404,11 @@ function formatCurrency(amount) {
 // Initialize financial overview chart
 function initFinancialChart() {
     const ctx = document.getElementById('financialChart').getContext('2d');
-    
+
     const gradient1 = ctx.createLinearGradient(0, 0, 0, 400);
     gradient1.addColorStop(0, 'rgba(74, 222, 128, 0.8)');
     gradient1.addColorStop(1, 'rgba(74, 222, 128, 0.1)');
-    
+
     const gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
     gradient2.addColorStop(0, 'rgba(239, 68, 68, 0.8)');
     gradient2.addColorStop(1, 'rgba(239, 68, 68, 0.1)');
@@ -533,7 +533,7 @@ function initFinancialChart() {
 // Initialize category chart (donut chart)
 function initCategoryChart() {
     const ctx = document.getElementById('categoryChart').getContext('2d');
-    
+
     categoryChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -615,24 +615,24 @@ async function loadDashboardData() {
 function animateValue(elementId, start, end, duration, formatter) {
     const element = document.getElementById(elementId);
     const startTime = performance.now();
-    
+
     function update(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Enhanced easing function (ease-out-quart)
         const easeOut = 1 - Math.pow(1 - progress, 4);
         const current = start + (end - start) * easeOut;
-        
+
         element.textContent = formatter(Math.floor(current));
-        
+
         if (progress < 1) {
             requestAnimationFrame(update);
         } else {
             element.textContent = formatter(end);
         }
     }
-    
+
     requestAnimationFrame(update);
 }
 
@@ -643,7 +643,7 @@ async function loadUserData() {
     }
 
     const token = localStorage.getItem('auth_token');
-    
+
     if (!token) {
         window.location.href = '/login';
         return;
@@ -680,7 +680,7 @@ async function loadUserData() {
 // API logout function for token-based auth
 async function logoutWithToken() {
     const token = localStorage.getItem('auth_token');
-    
+
     if (!token) {
         return false;
     }
@@ -697,7 +697,7 @@ async function logoutWithToken() {
 
         const data = await response.json();
         console.log('API Logout response:', data);
-        
+
         return response.ok;
     } catch (error) {
         console.error('API Logout error:', error);
@@ -713,13 +713,13 @@ function logoutWithSession() {
 // Enhanced logout function with better UX
 async function logout() {
     const loadingOverlay = document.getElementById('loadingOverlay');
-    
+
     try {
         loadingOverlay.classList.remove('hidden');
-        
+
         // Add slight delay for better UX
         await new Promise(resolve => setTimeout(resolve, 800));
-        
+
         if (isTokenAuth()) {
             await logoutWithToken();
             localStorage.removeItem('auth_token');
@@ -732,7 +732,7 @@ async function logout() {
 
     } catch (error) {
         console.error('Logout error:', error);
-        
+
         if (isTokenAuth()) {
             localStorage.removeItem('auth_token');
             localStorage.removeItem('user');
@@ -747,19 +747,19 @@ async function logout() {
 // Chart period buttons functionality
 function initPeriodButtons() {
     const periodButtons = document.querySelectorAll('.period-btn');
-    
+
     periodButtons.forEach(button => {
         button.addEventListener('click', function() {
             // Remove active class from all buttons
             document.querySelector('.active-period').classList.remove('active-period');
             document.querySelector('.active-period').classList.add('text-gray-600', 'hover:bg-white/50');
             document.querySelector('.active-period').classList.remove('bg-gradient-to-r', 'from-[#4ADE80]', 'to-emerald-500', 'text-white', 'shadow-lg');
-            
+
             // Add active class to clicked button
             this.classList.add('active-period');
             this.classList.remove('text-gray-600', 'hover:bg-white/50');
             this.classList.add('bg-gradient-to-r', 'from-[#4ADE80]', 'to-emerald-500', 'text-white', 'shadow-lg');
-            
+
             // Update chart data based on period
             const period = this.dataset.period || '7';
             updateChartData(period);
@@ -770,9 +770,9 @@ function initPeriodButtons() {
 // Update chart data based on selected period
 function updateChartData(period) {
     if (!financialChart) return;
-    
+
     let newData, newLabels;
-    
+
     switch(period) {
         case '30':
             newLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
@@ -795,7 +795,7 @@ function updateChartData(period) {
                 expense: [800000, 1200000, 600000, 900000, 1100000, 1000000, 1300000]
             };
     }
-    
+
     financialChart.data.labels = newLabels;
     financialChart.data.datasets[0].data = newData.income;
     financialChart.data.datasets[1].data = newData.expense;
@@ -807,7 +807,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isTokenAuth()) {
         loadUserData();
     }
-    
+
     loadDashboardData();
     initFinancialChart();
     initCategoryChart();
@@ -957,15 +957,15 @@ canvas {
     .text-6xl {
         font-size: 3rem;
     }
-    
+
     .text-4xl {
         font-size: 2rem;
     }
-    
+
     .p-8 {
         padding: 1.5rem;
     }
-    
+
     .py-12 {
         padding-top: 2rem;
         padding-bottom: 2rem;

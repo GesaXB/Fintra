@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BudgetsController;
 use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\ReportsController;
 
 // Routes untuk guest (belum login)
 Route::middleware('guest')->group(function () {
@@ -20,12 +21,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('categories', CategoryController::class);
     Route::get('categories-stats', [CategoryController::class, 'stats']);
-    
+    Route::apiResource('reports', ReportsController::class);
+
     // Semua resource routes
     Route::apiResource('users', UserController::class);
     Route::apiResource('budgets', BudgetsController::class);
     Route::apiResource('transactions', TransactionsController::class);
-    
+    Route::apiResource('reports', ReportsController::class);
+
     // Route stats
     Route::get('categories-stats', [CategoryController::class, 'stats']);
 });

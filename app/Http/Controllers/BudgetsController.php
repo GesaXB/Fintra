@@ -3,85 +3,170 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Budgets;
 
 class BudgetsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return response()->json(Budgets::all());
+        try {
+            $budgets = Budgets::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+            return response()->json([
+                'success' => true,
+                'data' => $budgets
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch budgets'
+            ], 500);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $budget = Budgets::create($request->all());
+        try {
+            $validated = $request->validate([
+                'amount' => 'required|numeric|min:0',
+                'description' => 'nullable|string|max:255',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date'
+            ]);
 
-        return response()->json([
-            'message' => 'Budget created successfully',
-            'data' => $budget
-        ], 201);
+            $budget = Budgets::create(array_merge($validated, [
+                'user_id' => Auth::id()
+            ]));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Budget created successfully',
+                'data' => $budget
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create budget'
+            ], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
-        $budget = Budgets::find($id);
+        try {
+            $budget = Budgets::where('id', $id)->where('user_id', Auth::id())->first();
 
-        if (!$budget) {
+            if (!$budget) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Budget not found'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $budget
+            ]);
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Category not found'
-            ], 404);
+                'message' => 'Failed to fetch budget'
+            ], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'data' => $budget
-        ], 200);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Budgets $budget)
+    public function update(Request $request, $id)
     {
+        try {
+            $budget = Budgets::where('id', $id)->where('user_id', Auth::id())->first();
 
-        $budget->update($request->all());
+            if (!$budget) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Budget not found'
+                ], 404);
+            }
 
-        return response()->json([
-            'message' => 'Budget updated successfully',
-            'data' => $budget
-        ], 200);
+            $validated = $request->validate([
+                'amount' => 'sometimes|numeric|min:0',
+                'description' => 'nullable|string|max:255',
+                'start_date' => 'sometimes|date',
+                'end_date' => 'sometimes|date|after_or_equal:start_date'
+            ]);
+
+            $budget->update($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Budget updated successfully',
+                'data' => $budget
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update budget'
+            ], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-       $budget = Budgets::find($id);
+        try {
+            $budget = Budgets::where('id', $id)->where('user_id', Auth::id())->first();
 
-        if (!$budget) {
+            if (!$budget) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Budget not found'
+                ], 404);
+            }
+
+            $budget->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Budget deleted successfully'
+            ]);
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'User not found'
-            ], 404);
+                'message' => 'Failed to delete budget'
+            ], 500);
         }
+    }
 
-        $budget->delete();
+    public function stats()
+    {
+        try {
+            $userId = Auth::id();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User deleted successfully'
-        ], 200);
+            $total = Budgets::where('user_id', $userId)->count();
+            $totalAmount = Budgets::where('user_id', $userId)->sum('amount');
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'total_budgets' => $total,
+                    'total_amount' => $totalAmount
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch budget stats'
+            ], 500);
+        }
     }
 }
